@@ -11,15 +11,15 @@ galleryContainer.insertAdjacentHTML('beforeend', galleryCard);
 function onGalleryContainer(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
         return `<div class="gallery__item">
-  <a class="gallery__link" href="${original}">
-    <img
-      class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-    />
-  </a>
-</div>`
+        <a class="gallery__link" href="${original}">
+        <img
+        class="gallery__image"
+        src="${preview}"
+        data-source="${original}"
+        alt="${description}"
+        />
+    </a>
+    </div>`
     }).join('');
 };
 
@@ -32,16 +32,17 @@ function onGalleryCardClick(event) {
         return;
     }
     const instance = basicLightbox.create(`<img src="${event.target.dataset.source}">`, {
-        onShow: (instance) => { window.addEventListener('keydown', openInstance) },
-        onClose: (instance) => { window.removeEventListener('keydown', openInstance) }
+        onShow: (instance) => { window.addEventListener('keydown', closeInstance) },
+        onClose: (instance) => { window.removeEventListener('keydown', closeInstance) }
     });
 
     instance.show()
 
-    function openInstance(event) {
+    function closeInstance(event) {
         if (event.code === 'Escape') {
             instance.close()
         }
     }
-}
+};
+
 
